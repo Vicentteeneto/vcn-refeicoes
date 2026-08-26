@@ -2,554 +2,402 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>VCN Refeições</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F6EFDC;--panel:#FFFDF7;--panel-2:#FBF3E3;
-  --ink:#241A10;--ink-soft:#7A6A54;--line:#E7DCC3;
-  --brand:#2F6B45;--brand-deep:#1F4A30;--brand-tint:#E3EEE0;
+  --paper:#F5EDD8;--panel:#FFFDF7;--panel-2:#F7F0DF;
+  --ink:#231A10;--ink-soft:#7A6A54;--line:#E5D9BF;
+  --brand:#2F6B45;--brand-deep:#1F4A30;--brand-tint:#E2EDDF;
   --amber:#C98A2C;--amber-tint:#FBECD2;
-  --brick:#B23B2A;--brick-tint:#F7E3DE;
-  --sidebar-bg:#16231A;--sidebar-line:rgba(255,255,255,.09);
-  --shadow:0 14px 34px rgba(36,26,16,.09);--shadow-lg:0 22px 50px rgba(36,26,16,.14);
-  --radius:20px;
+  --brick:#B23B2A;--brick-tint:#F5E0DB;
+  --header-h:56px;--tab-h:52px;
   --font-display:"Fraunces",Georgia,serif;
-  --font-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --font-body:"Inter",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
 }
-.tag-0{--tag:var(--brand)}
-.tag-1{--tag:var(--amber)}
-.tag-2{--tag:var(--brick)}
-.tag-3{--tag:#2F7A78}
-.tag-4{--tag:#7A3E64}
-.tag-5{--tag:#355C8C}
-
-*{box-sizing:border-box}
-body{margin:0;font-family:var(--font-body);color:var(--ink);
-  background:radial-gradient(1100px 480px at 100% -10%, rgba(47,107,69,.06), transparent 60%), var(--paper);}
+.t0{--tag:#2F6B45}.t1{--tag:#C98A2C}.t2{--tag:#B23B2A}.t3{--tag:#2F7A78}.t4{--tag:#7A3E64}.t5{--tag:#355C8C}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;font-family:var(--font-body);color:var(--ink);background:var(--paper);overflow:hidden}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button{cursor:pointer;border:none;background:none}
+header{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--header-h);background:var(--ink);display:flex;align-items:center;padding:0 14px;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.logo{width:34px;height:34px;border-radius:9px;flex:none;background:linear-gradient(150deg,var(--brand),#4A8A62);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:13px;color:#fff}
+.brand-name{font-family:var(--font-display);font-weight:700;font-size:16px;color:#EFE9DC;white-space:nowrap}
+.header-nav{margin-left:auto;display:flex;gap:2px}
+.hn{color:#9CA894;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.2px;transition:.15s}
+.hn:hover,.hn.active{background:rgba(255,255,255,.1);color:#EFE9DC}
+.hn.active{color:#fff}
 
-.app{min-height:100vh;display:grid;grid-template-columns:262px 1fr}
-aside{background:var(--sidebar-bg);color:#EFE9DC;padding:26px 20px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh;border-right:1px solid rgba(0,0,0,.2)}
-.brand{display:flex;align-items:center;gap:13px;padding:0 6px 20px;border-bottom:1px solid var(--sidebar-line)}
-.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(155deg,var(--brand),#4A8A62);display:grid;place-items:center;font-weight:800;font-family:var(--font-display);font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
-.brand strong{font-family:var(--font-display);font-weight:700;font-size:16px;display:block}
-.brand small{display:block;color:#9CA894;margin-top:3px;font-size:12px}
-nav{display:grid;gap:6px}
-.nav{border:0;background:transparent;color:#B9C0AF;text-align:left;padding:11px 14px;border-radius:11px;font-weight:600;font-size:14px;transition:.16s ease;border-left:3px solid transparent}
-.nav:hover{background:rgba(255,255,255,.06);color:#F3EFE3}
-.nav.active{background:rgba(255,255,255,.08);color:#F3EFE3;border-left:3px solid var(--brand)}
-.side-status{margin-top:auto;background:rgba(255,255,255,.05);border:1px solid var(--sidebar-line);border-radius:16px;padding:15px}
-.side-status .sub{color:#9CA894;font-size:12px;margin-top:7px;line-height:1.5}
-.side-status .sub strong{color:#EFE9DC}
-.dot{display:inline-block;width:8px;height:8px;border-radius:999px;background:#5FBF7F;margin-right:8px;box-shadow:0 0 0 3px rgba(95,191,127,.18)}
+/* ── DRAWER ── */
+.menu-btn{margin-left:auto;width:40px;height:40px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);flex:none}
+.menu-btn span{display:block;width:18px;height:2px;background:#EFE9DC;border-radius:2px;transition:.2s}
+.menu-btn:hover{background:rgba(255,255,255,.14)}
 
-main{padding:32px 34px 44px}
-.page{display:none}.page.active{display:block}
-.topbar{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:26px}
-.topbar .eyebrow-page{color:var(--brand);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:1.4px;margin-bottom:8px}
-.topbar h1{margin:0;font-family:var(--font-display);font-weight:700;font-size:32px;letter-spacing:-.4px}
-.topbar p{margin:6px 0 0;color:var(--ink-soft);font-size:14.5px}
-.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:0 3px 10px rgba(36,26,16,.05)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;opacity:0;pointer-events:none;transition:.25s}
+.drawer-overlay.open{opacity:1;pointer-events:all}
 
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.card-h{padding:24px 24px 0;display:flex;justify-content:space-between;align-items:center;gap:14px}
-.card-h h2,.card-h h3{margin:0;font-family:var(--font-display);font-weight:700}
-.card-h h2{font-size:21px}.card-h h3{font-size:17px}
-.sub{font-size:13px;color:var(--ink-soft)}
-.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(330px,.75fr);gap:22px}
-.content{padding:24px}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:240px;background:var(--ink);z-index:201;transform:translateX(100%);transition:.28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;padding:20px 16px;gap:6px;box-shadow:-8px 0 32px rgba(0,0,0,.3)}
+.drawer.open{transform:translateX(0)}
 
-.employee-card{background:linear-gradient(155deg,var(--brand-tint),var(--panel-2));border:1px solid #D6E4D2;border-radius:18px;padding:22px;margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.avatar{width:60px;height:60px;border-radius:15px;flex:none;background:linear-gradient(155deg,var(--brand),#4A8A62);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:22px;box-shadow:var(--shadow)}
-.employee-jump{margin-left:auto;min-width:200px}
-.employee-jump label{display:block;margin-bottom:6px;color:var(--ink-soft)}
-.employee-jump select.field{height:40px;font-size:13px}
-.out-of-order{display:inline-block;margin-top:8px;background:var(--amber-tint);color:#8A5D1D;border-radius:999px;padding:5px 10px;font-size:11.5px;font-weight:700}
-.label{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;font-weight:800;color:var(--ink-soft);margin-bottom:7px}
-.employee-name{font-family:var(--font-display);font-size:27px;font-weight:700;letter-spacing:-.4px;margin:0;line-height:1.05}
-.employee-meta{color:var(--ink-soft);margin-top:4px;font-size:13.5px}
+.drawer-header{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:10px}
+.drawer-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(150deg,var(--brand),#4A8A62);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:13px;color:#fff;flex:none}
+.drawer-title{font-family:var(--font-display);font-weight:700;font-size:15px;color:#EFE9DC}
+.drawer-close{margin-left:auto;width:32px;height:32px;border-radius:8px;color:#9CA894;font-size:18px;display:grid;place-items:center;background:rgba(255,255,255,.06)}
+.drawer-close:hover{background:rgba(255,255,255,.12);color:#EFE9DC}
 
-.done-state{padding:44px 24px;text-align:center}
-.done-state .mark{width:56px;height:56px;border-radius:16px;background:var(--brand-tint);color:var(--brand);display:grid;place-items:center;margin:0 auto 16px;font-size:26px;font-weight:800;font-family:var(--font-display)}
-.done-state h3{font-family:var(--font-display);margin:0 0 6px;font-size:20px}
+.dlink{border:0;background:transparent;color:#B9C0AF;text-align:left;padding:13px 14px;border-radius:11px;font-weight:600;font-size:14px;width:100%;transition:.16s;border-left:3px solid transparent}
+.dlink:hover{background:rgba(255,255,255,.07);color:#F3EFE3}
+.dlink.active{background:rgba(255,255,255,.09);color:#fff;border-left-color:var(--brand)}
 
-.meal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
-.meal{--tag:var(--brand);background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--tag);border-radius:14px;padding:16px 16px 16px 15px;text-align:left;min-height:80px;position:relative;transition:.16s ease}
-.meal:hover{transform:translateY(-2px);box-shadow:0 10px 24px -6px color-mix(in srgb, var(--tag) 55%, transparent);border-color:color-mix(in srgb, var(--tag) 40%, var(--line))}
-.meal.selected{background:color-mix(in srgb, var(--tag) 10%, var(--panel));box-shadow:0 0 0 2px var(--tag)}
-.meal strong{display:block;font-size:15px;font-weight:700}
-.meal span{display:block;color:var(--ink-soft);font-size:12px;margin-top:4px}
-.meal .count{position:absolute;right:11px;top:11px;min-width:24px;height:24px;padding:0 5px;border-radius:999px;background:color-mix(in srgb, var(--tag) 16%, var(--panel));color:var(--tag);display:grid;place-items:center;font-size:12px;font-weight:800}
-
-.extras{border-top:1px dashed var(--line);margin-top:22px;padding-top:18px}
-.extra-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--amber-tint);border:1px solid #EFD9AC;border-radius:14px;padding:13px 16px}
-.qty-ctrl{display:flex;align-items:center;gap:10px}
-.mini{width:32px;height:32px;border-radius:9px;border:1px solid #E2C387;background:#fff;color:var(--amber);font-weight:800;font-size:15px;line-height:1}
-.mini:hover{background:var(--amber);color:#fff;border-color:var(--amber)}
-.qty{min-width:22px;text-align:center;font-weight:800}
-textarea{width:100%;min-height:66px;margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical;outline:none;background:var(--panel);color:var(--ink)}
-textarea:focus,.field:focus,select.field:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
-
-.footer-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap}
-.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;font-size:13.5px;transition:.15s ease}
-.primary{background:var(--ink);color:#fff}.primary:hover{background:#3A2A19}
-.secondary{background:var(--panel-2);color:var(--ink);border:1px solid var(--line)}.secondary:hover{background:#F3E7CE}
-.success{background:var(--brand);color:#fff}.success:hover{background:var(--brand-deep)}
-.ghost{background:var(--panel);border:1px solid var(--line);color:var(--ink)}.ghost:hover{background:var(--panel-2)}
-
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 24px 0}
-.stat{background:var(--panel-2);border:1px solid var(--line);border-radius:15px;padding:14px}
-.stat .n{font-size:22px;font-weight:800;font-family:var(--font-display)}
-.stat .t{font-size:11.5px;color:var(--ink-soft);margin-top:3px;font-weight:600}
-.stat.answered .n{color:var(--brand)}.stat.pending .n{color:var(--brick)}
-
-.progress-wrap{padding:16px 24px 0}
-.progress-head{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-bottom:7px;font-weight:600}
-.progress{height:9px;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;overflow:hidden}
-.progress>div{height:100%;background:linear-gradient(90deg,var(--brand),#4A8A62);width:0;border-radius:999px;transition:width .3s ease}
-
-.summary{padding:16px 24px 22px}
-.summary-item{display:grid;grid-template-columns:10px 1fr auto;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line)}
-.summary-item:last-child{border-bottom:0}
-.summary-item .dot2{width:9px;height:9px;border-radius:3px;background:var(--tag,var(--brand))}
-.summary-item span{font-size:13.5px;font-weight:600}
-.summary-item b{min-width:30px;height:30px;border-radius:9px;background:var(--panel-2);display:grid;place-items:center;font-size:12.5px}
-.empty{padding:26px 4px;text-align:center;color:var(--ink-soft);font-size:13.5px}
-
-.order{margin-top:20px;padding:22px 24px}
-.preview{position:relative;background:#1B140C;color:#F1E9D6;border-radius:14px;padding:20px 18px 18px;margin-top:16px;white-space:pre-line;line-height:1.7;font-family:var(--font-mono);font-size:12.5px;box-shadow:var(--shadow)}
-.preview::before{content:"";position:absolute;top:-9px;left:0;right:0;height:10px;background:var(--panel);
-  clip-path:polygon(0% 100%,5% 0%,10% 100%,15% 0%,20% 100%,25% 0%,30% 100%,35% 0%,40% 100%,45% 0%,50% 100%,55% 0%,60% 100%,65% 0%,70% 100%,75% 0%,80% 100%,85% 0%,90% 100%,95% 0%,100% 100%,100% 100%,0% 100%);}
-.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
-.btns .btn{flex:1;min-width:100px}
-
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
-.kpi{padding:18px}
-.kpi .big{font-size:28px;font-weight:800;margin-top:6px;font-family:var(--font-display)}
+.drawer .side-status{margin-top:auto;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:13px;font-size:12px;color:#9CA894;line-height:1.6}
+.drawer .side-status strong{color:#EFE9DC}
+.dot-green{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5FBF7F;margin-right:6px;box-shadow:0 0 0 2px rgba(95,191,127,.2)}
+.shell{position:fixed;top:var(--header-h);left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.page{display:none;flex:1;overflow:hidden;flex-direction:column}
+.page.active{display:flex}
+.pedido-layout{display:flex;flex:1;overflow:hidden}
+.coleta-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--line)}
+.emp-strip{flex:none;background:var(--brand-tint);border-bottom:1px solid #C8DEC3;padding:10px 14px;display:flex;align-items:center;gap:12px}
+.emp-avatar{width:40px;height:40px;border-radius:11px;flex:none;background:linear-gradient(150deg,var(--brand),#4A8A62);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:17px}
+.emp-info{flex:1;min-width:0}
+.emp-label{font-size:10px;text-transform:uppercase;letter-spacing:1.1px;font-weight:800;color:var(--brand-deep);margin-bottom:2px}
+.emp-name{font-family:var(--font-display);font-size:20px;font-weight:700;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.emp-meta{font-size:11.5px;color:var(--ink-soft);margin-top:3px}
+.emp-jump select{height:32px;border-radius:9px;border:1px solid var(--line);padding:0 8px;background:var(--panel);color:var(--ink);font-size:12px;outline:none;max-width:130px}
+.done-panel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center}
+.done-panel .mark{width:52px;height:52px;border-radius:14px;background:var(--brand-tint);color:var(--brand-deep);display:grid;place-items:center;font-size:24px;font-family:var(--font-display);font-weight:700}
+.done-panel h3{font-family:var(--font-display);margin:0;font-size:19px}
+.done-panel p{color:var(--ink-soft);font-size:13.5px;margin:0}
+.meals-wrap{flex:1;overflow-y:auto;padding:10px 10px 4px;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}
+.meal{--tag:var(--brand);background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--tag);border-radius:13px;padding:12px 12px 10px 11px;text-align:left;position:relative;transition:.14s ease;min-height:68px;display:flex;flex-direction:column;justify-content:center}
+.meal:active{transform:scale(.97)}
+.meal.selected{box-shadow:0 0 0 2px var(--tag)}
+.meal strong{display:block;font-size:14px;font-weight:700;line-height:1.2}
+.meal span{display:block;font-size:11px;color:var(--ink-soft);margin-top:3px}
+.meal .count{position:absolute;right:9px;top:9px;min-width:22px;height:22px;padding:0 4px;border-radius:999px;background:color-mix(in srgb,var(--tag) 15%,var(--panel));color:var(--tag);display:grid;place-items:center;font-size:11px;font-weight:800}
+.extras-strip{flex:none;border-top:1px dashed var(--line);padding:8px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--amber-tint)}
+.extras-strip strong{font-size:13px}
+.extras-strip small{color:var(--ink-soft);font-size:11.5px;margin-left:4px}
+.qty-ctrl{display:flex;align-items:center;gap:8px;margin-left:auto}
+.mini{width:30px;height:30px;border-radius:8px;border:1px solid #E2C387;background:#fff;color:var(--amber);font-weight:800;font-size:16px}
+.mini:active{background:var(--amber);color:#fff}
+.qty{min-width:20px;text-align:center;font-weight:800;font-size:15px}
+.actions-strip{flex:none;border-top:1px solid var(--line);padding:8px 12px;display:flex;gap:8px;background:var(--panel)}
+.btn{border-radius:10px;padding:9px 14px;font-weight:700;font-size:13px;transition:.15s}
+.btn-ghost{background:var(--panel-2);color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:active{background:#EDE3CE}
+.btn-brand{background:var(--brand);color:#fff}
+.btn-brand:active{background:var(--brand-deep)}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-flex{flex:1;text-align:center}
+.right-panel{width:min(340px,42%);display:flex;flex-direction:column;overflow:hidden}
+.tab-bar{flex:none;display:flex;border-bottom:1px solid var(--line);background:var(--panel)}
+.tab{flex:1;padding:0;height:var(--tab-h);border-bottom:3px solid transparent;font-weight:700;font-size:12px;color:var(--ink-soft);transition:.15s}
+.tab.active{color:var(--brand);border-bottom-color:var(--brand)}
+.tab-content{flex:1;overflow-y:auto}
+.tab-pane{display:none;padding:14px}
+.tab-pane.active{display:block}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:10px 8px;text-align:center}
+.stat .n{font-size:20px;font-weight:800;font-family:var(--font-display)}
+.stat .t{font-size:10.5px;color:var(--ink-soft);margin-top:2px;font-weight:600}
+.stat.s-brand .n{color:var(--brand)}.stat.s-brick .n{color:var(--brick)}
+.progress-h{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-soft);margin-bottom:6px;font-weight:600}
+.bar{height:8px;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-bottom:12px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--brand),#4A8A62);width:0;border-radius:999px;transition:width .3s}
+.s-item{display:grid;grid-template-columns:8px 1fr auto;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line)}
+.s-item:last-child{border-bottom:0}
+.s-dot{width:8px;height:8px;border-radius:2px;background:var(--tag,var(--brand))}
+.s-item span{font-size:13px;font-weight:600}
+.s-item b{min-width:27px;height:27px;border-radius:8px;background:var(--panel-2);display:grid;place-items:center;font-size:12px}
+.empty{text-align:center;color:var(--ink-soft);font-size:13px;padding:18px 0}
+.preview{position:relative;background:#1B140C;color:#F1E9D6;border-radius:12px;padding:16px;white-space:pre-line;line-height:1.65;font-family:var(--font-mono);font-size:12px;margin-bottom:12px}
+.preview::before{content:"";position:absolute;top:-8px;left:0;right:0;height:9px;background:var(--panel);clip-path:polygon(0% 100%,4% 0%,8% 100%,12% 0%,16% 100%,20% 0%,24% 100%,28% 0%,32% 100%,36% 0%,40% 100%,44% 0%,48% 100%,52% 0%,56% 100%,60% 0%,64% 100%,68% 0%,72% 100%,76% 0%,80% 100%,84% 0%,88% 100%,92% 0%,96% 100%,100% 0%,100% 100%,0% 100%)}
+.send-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.send-btns .btn-brand{grid-column:1/-1}
+.obs-field{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px;resize:none;min-height:52px;background:var(--panel);color:var(--ink);outline:none;font-size:13px;margin-top:8px}
+.obs-field:focus{border-color:var(--brand)}
+.page-scroll{flex:1;overflow-y:auto;padding:16px}
+.page-title{font-family:var(--font-display);font-size:22px;font-weight:700;margin:0 0 14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(36,26,16,.07)}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.kpi{padding:14px}
+.kpi .big{font-size:24px;font-weight:800;font-family:var(--font-display);margin-top:4px}
 .kpi.k-brand{background:var(--brand-tint)}.kpi.k-brand .big{color:var(--brand-deep)}
-.kpi.k-amber{background:var(--amber-tint)}.kpi.k-amber .big{color:#8A5D1D}
+.kpi.k-amber{background:var(--amber-tint)}.kpi.k-amber .big{color:#7A5010}
 .kpi.k-brick{background:var(--brick-tint)}.kpi.k-brick .big{color:#7A2B1F}
 .kpi.k-ink{background:var(--panel-2)}
-
-.table-wrap{overflow:auto;padding:0 24px 22px}
-table{width:100%;border-collapse:collapse;min-width:660px}
-th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:13.5px}
-th{color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.8px;font-weight:700}
-.row-avatar{display:flex;align-items:center;gap:10px}
-.mini-avatar{width:30px;height:30px;border-radius:9px;background:color-mix(in srgb, var(--tag,var(--brand)) 18%, var(--panel));color:var(--tag,var(--brand));display:grid;place-items:center;font-weight:800;font-size:12px;font-family:var(--font-display)}
-
-.badge{padding:5px 10px;border-radius:999px;font-size:11.5px;font-weight:700;background:color-mix(in srgb, var(--tag,var(--brand)) 16%, var(--panel));color:color-mix(in srgb, var(--tag,var(--brand)) 65%, var(--ink))}
-.status{padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}
+.card-inner{padding:14px}
+.card-inner h3{font-family:var(--font-display);font-size:15px;margin:0 0 10px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:10.5px;text-transform:uppercase;letter-spacing:.6px}
+td{padding:9px 6px;border-bottom:1px solid var(--line)}
+.status{padding:4px 8px;border-radius:999px;font-size:10.5px;font-weight:800}
 .status.ok{background:var(--brand-tint);color:var(--brand-deep)}
-.status.pending{background:var(--amber-tint);color:#8A5D1D}
+.status.pending{background:var(--amber-tint);color:#7A5010}
 .status.absent{background:var(--brick-tint);color:#7A2B1F}
-
-.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.settings-card{padding:22px}
-.settings-card h3{margin:0 0 4px;font-family:var(--font-display);font-size:17px}
-.form-grid{display:grid;gap:12px;margin-top:16px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form-field label{display:block;font-size:12px;color:var(--ink-soft);margin-bottom:6px;font-weight:700}
-.field{width:100%;height:42px;border:1px solid var(--line);border-radius:11px;padding:0 12px;background:var(--panel);color:var(--ink);outline:none}
-.employee-toolbar{display:flex;justify-content:space-between;gap:12px;margin:0 24px 18px;flex-wrap:wrap}
-.employee-toolbar .field{max-width:320px}
-
-.switch-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.badge{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:color-mix(in srgb,var(--tag,var(--brand)) 16%,var(--panel));color:color-mix(in srgb,var(--tag,var(--brand)) 70%,var(--ink))}
+.settings-grid{display:grid;gap:12px}
+.settings-card{padding:14px}
+.settings-card h3{font-family:var(--font-display);font-size:15px;margin:0 0 4px}
+.sub{font-size:12.5px;color:var(--ink-soft)}
+.form-grid{display:grid;gap:9px;margin-top:12px}
+.form-field label{display:block;font-size:11px;color:var(--ink-soft);margin-bottom:4px;font-weight:700}
+.field{width:100%;height:38px;border:1px solid var(--line);border-radius:9px;padding:0 10px;background:var(--panel);color:var(--ink);outline:none;font-size:13px}
+.field:focus{border-color:var(--brand)}
+.switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
 .switch-row:last-child{border-bottom:0}
-.switch{position:relative;width:44px;height:25px;flex:none}
+.switch-row strong{font-size:13px}
+.switch{position:relative;width:40px;height:23px;flex:none}
 .switch input{display:none}
-.slider{position:absolute;inset:0;background:#DCD0B4;border-radius:999px;transition:.2s}
-.slider:before{content:"";position:absolute;width:19px;height:19px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.slider{position:absolute;inset:0;background:#D5C8A8;border-radius:999px;transition:.2s}
+.slider:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .switch input:checked+.slider{background:var(--brand)}
-.switch input:checked+.slider:before{transform:translateX(19px)}
-
-.toast{position:fixed;right:24px;bottom:24px;background:var(--ink);color:#F6EFDC;padding:13px 17px;border-radius:12px;box-shadow:var(--shadow-lg);font-weight:600;font-size:13.5px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s ease;z-index:99}
-.toast.show{opacity:1;transform:translateY(0)}
-
-@media(max-width:1050px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}nav{grid-template-columns:repeat(5,1fr)}.side-status{display:none}.grid{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){main{padding:22px 16px 32px}aside{padding:16px 14px}nav{grid-template-columns:repeat(2,1fr)}.topbar{flex-direction:column;align-items:flex-start}.meal-grid,.settings-grid,.form-row{grid-template-columns:1fr}.stats,.kpi-grid{grid-template-columns:1fr}.footer-actions{flex-direction:column;align-items:stretch}.btn{width:100%}.employee-card{flex-direction:column;text-align:center}.employee-jump{margin-left:0;width:100%}.employee-toolbar .field{max-width:none}}
+.switch input:checked+.slider:before{transform:translateX(17px)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#F6EFDC;padding:11px 18px;border-radius:12px;font-weight:600;font-size:13px;opacity:0;pointer-events:none;transition:.22s ease;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){
+  .right-panel{display:none}
+  .coleta-panel{border-right:none}
+  .hn{padding:7px 7px;font-size:11px}
+  .brand-name{font-size:14px}
+}
 </style>
 </head>
 <body>
-<div class="app">
-<aside>
-  <div class="brand"><div class="logo">VCN</div><div><strong>VCN Refeições</strong><small>Gestão corporativa</small></div></div>
-  <nav>
-    <button class="nav active" data-page="pedido">Pedido do dia</button>
-    <button class="nav" data-page="dashboard">Dashboard</button>
-    <button class="nav" data-page="funcionarios">Funcionários</button>
-    <button class="nav" data-page="historico">Histórico</button>
-    <button class="nav" data-page="config">Configurações</button>
-  </nav>
+<header>
+  <div class="logo">VCN</div>
+  <span class="brand-name">VCN Refeições</span>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-logo">VCN</div>
+    <span class="drawer-title">VCN Refeições</span>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <button class="dlink active" data-page="pedido">Pedido do dia</button>
+  <button class="dlink" data-page="dashboard">Dashboard</button>
+  <button class="dlink" data-page="funcionarios">Equipe</button>
+  <button class="dlink" data-page="historico">Histórico</button>
+  <button class="dlink" data-page="config">Configurações</button>
   <div class="side-status">
-    <div><span class="dot"></span><strong>WhatsApp conectado</strong></div>
-    <div class="sub">Grupo: <strong>Refeições EAGLE</strong></div>
-    <div class="sub">Último cardápio recebido às <strong>09:17</strong></div>
+    <div><span class="dot-green"></span><strong>WhatsApp conectado</strong></div>
+    <div>Grupo: <strong>Refeições EAGLE</strong></div>
+    <div>Cardápio recebido às <strong>09:17</strong></div>
   </div>
-</aside>
+</div>
 
-<main>
-
+<div class="shell">
 <section id="pedido" class="page active">
-  <div class="topbar">
-    <div><div class="eyebrow-page">Coleta de hoje</div><h1>Pedido do dia</h1><p>26 de agosto de 2026 · Cardápio recebido automaticamente</p></div>
-    <div class="actions"><span class="chip"><span class="dot" style="margin-right:6px"></span>WhatsApp conectado</span><span class="chip">7 pratos disponíveis</span></div>
-  </div>
-  <div class="grid">
-    <section class="card">
-      <div class="card-h"><div><h2>Coleta de refeições</h2><div class="sub">Clique em um prato para salvar e avançar automaticamente.</div></div><span class="chip" id="counterChip">0 de 19</span></div>
-      <div class="content" id="collectionContent"></div>
-    </section>
-
-    <div>
-      <section class="card">
-        <div class="card-h"><div><h3>Resumo em tempo real</h3><div class="sub">Atualiza a cada escolha</div></div></div>
-        <div class="stats">
-          <div class="stat answered"><div class="n" id="answered">0</div><div class="t">Respondidos</div></div>
-          <div class="stat pending"><div class="n" id="pending">19</div><div class="t">Pendentes</div></div>
-          <div class="stat"><div class="n" id="totalMeals">0</div><div class="t">Refeições</div></div>
+  <div class="pedido-layout">
+    <div class="coleta-panel">
+      <div id="empStrip"></div>
+      <div class="meals-wrap" id="mealGrid"></div>
+      <div class="extras-strip">
+        <div><strong>Ovo frito</strong><small>R$ 2,00</small></div>
+        <div class="qty-ctrl">
+          <button class="mini" id="minusExtra">−</button>
+          <span class="qty" id="extraQty">0</span>
+          <button class="mini" id="plusExtra">+</button>
         </div>
-        <div class="progress-wrap"><div class="progress-head"><span>Progresso da coleta</span><strong id="progressLabel">0%</strong></div><div class="progress"><div id="progressBar"></div></div></div>
-        <div class="summary" id="summary"></div>
-      </section>
-
-      <section class="card order">
-        <div class="card-h" style="padding:0"><div><h3>Mensagem para o restaurante</h3><div class="sub">Prévia automática, pronta para enviar</div></div></div>
-        <div class="preview" id="preview">Bom dia
+      </div>
+      <div class="actions-strip">
+        <button class="btn btn-ghost btn-flex" id="absentBtn">Ausente</button>
+        <button class="btn btn-ghost btn-flex" id="undoBtn">↩ Desfazer</button>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="tab-bar">
+        <button class="tab active" data-tab="resumo">Resumo</button>
+        <button class="tab" data-tab="mensagem">Mensagem</button>
+        <button class="tab" data-tab="obs">Obs.</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab-resumo">
+          <div class="stats-row">
+            <div class="stat s-brand"><div class="n" id="answered">0</div><div class="t">Respondidos</div></div>
+            <div class="stat s-brick"><div class="n" id="pending">19</div><div class="t">Pendentes</div></div>
+            <div class="stat"><div class="n" id="totalMeals">0</div><div class="t">Refeições</div></div>
+          </div>
+          <div class="progress-h"><span>Progresso</span><strong id="progressLabel">0%</strong></div>
+          <div class="bar"><div id="progressBar"></div></div>
+          <div id="summary"></div>
+        </div>
+        <div class="tab-pane" id="tab-mensagem">
+          <div class="preview" id="preview">Bom dia
 
 Total 0 refeições</div>
-        <div class="btns">
-          <button class="btn secondary" id="copyBtn">Copiar</button>
-          <button class="btn primary" id="printBtn">Imprimir</button>
-          <button class="btn success" id="sendBtn">Enviar WhatsApp</button>
+          <div class="send-btns">
+            <button class="btn btn-ghost" id="copyBtn">Copiar</button>
+            <button class="btn btn-ghost" id="printBtn">Imprimir</button>
+            <button class="btn btn-brand" id="sendBtn">Enviar WhatsApp</button>
+          </div>
         </div>
-      </section>
+        <div class="tab-pane" id="tab-obs">
+          <p class="sub" style="margin:0 0 8px">Observação para o funcionário atual</p>
+          <textarea class="obs-field" id="obs" placeholder="ex.: arroz e feijão"></textarea>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
 <section id="dashboard" class="page">
-  <div class="topbar"><div><div class="eyebrow-page">Visão geral</div><h1>Dashboard</h1><p>Visão rápida da operação de hoje</p></div></div>
-  <div class="kpi-grid">
-    <div class="card kpi k-ink"><div class="sub">Funcionários ativos</div><div class="big">19</div></div>
-    <div class="card kpi k-brand"><div class="sub">Pedidos registrados</div><div class="big" id="dashAnswered">0</div></div>
-    <div class="card kpi k-amber"><div class="sub">Pendentes</div><div class="big" id="dashPending">19</div></div>
-    <div class="card kpi k-brick"><div class="sub">Cardápio de hoje</div><div class="big">6 pratos</div></div>
+  <div class="page-scroll">
+    <p class="page-title">Dashboard</p>
+    <div class="kpi-grid">
+      <div class="card kpi k-ink"><div class="sub">Funcionários</div><div class="big">19</div></div>
+      <div class="card kpi k-brand"><div class="sub">Respondidos</div><div class="big" id="dashAnswered">0</div></div>
+      <div class="card kpi k-brick"><div class="sub">Pendentes</div><div class="big" id="dashPending">19</div></div>
+      <div class="card kpi k-amber"><div class="sub">Cardápio</div><div class="big">6 pratos</div></div>
+    </div>
+    <div class="card"><div class="card-inner"><h3>Distribuição</h3><div id="dashSummary"></div></div></div>
   </div>
-  <section class="card"><div class="card-h"><div><h3>Distribuição das refeições</h3><div class="sub">Quantidade escolhida por prato</div></div></div><div class="summary" id="dashSummary"></div></section>
 </section>
-
 <section id="funcionarios" class="page">
-  <div class="topbar"><div><div class="eyebrow-page">Cadastro</div><h1>Funcionários</h1><p>Cadastro e situação do pedido de hoje</p></div><button class="btn primary" id="newEmployeeBtn">+ Novo funcionário</button></div>
-  <section class="card">
-    <div class="employee-toolbar"><input class="field" id="employeeSearch" placeholder="Buscar funcionário ou setor"><span class="chip">19 ativos</span></div>
-    <div class="table-wrap"><table><thead><tr><th>Funcionário</th><th>Setor</th><th>Situação hoje</th><th>Refeição</th></tr></thead><tbody id="employeeTable"></tbody></table></div>
-  </section>
-</section>
-
-<section id="historico" class="page">
-  <div class="topbar"><div><div class="eyebrow-page">Registro</div><h1>Histórico</h1><p>Pedidos anteriores e status de envio</p></div></div>
-  <section class="card"><div class="table-wrap" style="padding-top:20px"><table><thead><tr><th>Data</th><th>Refeições</th><th>WhatsApp</th><th>Impressão</th></tr></thead><tbody>
-    <tr><td>25/08/2026</td><td>18</td><td><span class="status ok">Enviado</span></td><td><span class="status ok">Impresso</span></td></tr>
-    <tr><td>24/08/2026</td><td>17</td><td><span class="status ok">Enviado</span></td><td><span class="status ok">Impresso</span></td></tr>
-    <tr><td>21/08/2026</td><td>19</td><td><span class="status ok">Enviado</span></td><td><span class="status ok">Impresso</span></td></tr>
-  </tbody></table></div></section>
-</section>
-
-<section id="config" class="page">
-  <div class="topbar"><div><div class="eyebrow-page">Automação</div><h1>Configurações</h1><p>WhatsApp, restaurante, automações e impressão</p></div><button class="btn success" id="saveConfigBtn">Salvar configurações</button></div>
-  <div class="settings-grid">
-    <section class="card settings-card">
-      <h3>WhatsApp · Evolution API</h3><div class="sub">Conexão já existente, usada para receber e enviar mensagens.</div>
-      <div class="form-grid">
-        <div class="form-field"><label>URL da API</label><input class="field" value="http://localhost:8080"></div>
-        <div class="form-row"><div class="form-field"><label>Instância</label><input class="field" value="vcn-refeicoes"></div><div class="form-field"><label>API key</label><input class="field" type="password" value="************"></div></div>
-        <button class="btn secondary" id="testWaBtn">Testar conexão</button>
-      </div>
-    </section>
-    <section class="card settings-card">
-      <h3>Grupo e restaurante</h3><div class="sub">Só esse grupo e esse remetente podem gerar cardápio.</div>
-      <div class="form-grid">
-        <div class="form-field"><label>JID do grupo</label><input class="field" value="120363xxxxxxxxxxxx@g.us"></div>
-        <div class="form-field"><label>Nome do grupo</label><input class="field" value="Refeições EAGLE"></div>
-        <div class="form-row"><div class="form-field"><label>Restaurante</label><input class="field" value="Restaurante"></div><div class="form-field"><label>Número autorizado</label><input class="field" value="+55 91 8358-8663"></div></div>
-      </div>
-    </section>
-    <section class="card settings-card">
-      <h3>Automação</h3><div class="sub">Defina o que acontece automaticamente.</div>
-      <div class="form-grid">
-        <div class="switch-row"><div><strong>Importar cardápio automaticamente</strong><div class="sub">Ao receber mensagem válida do restaurante.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-        <div class="switch-row"><div><strong>Enviar resumo automaticamente</strong><div class="sub">Ao finalizar a coleta do dia.</div></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="switch-row"><div><strong>Imprimir automaticamente</strong><div class="sub">Imprime o pedido ao finalizar.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-        <div class="switch-row"><div><strong>Incluir bebidas</strong><div class="sub">Mostra as bebidas recebidas no cardápio.</div></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
-        <div class="switch-row"><div><strong>Incluir extras</strong><div class="sub">Permite ovo frito e observações.</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-      </div>
-    </section>
-    <section class="card settings-card">
-      <h3>Impressão</h3><div class="sub">Configuração do pedido impresso.</div>
-      <div class="form-grid">
-        <div class="form-field"><label>Impressora padrão</label><select class="field"><option>EPSON TM-T20X</option><option>Microsoft Print to PDF</option><option>Brother HL-L2360DW</option></select></div>
-        <div class="form-row"><div class="form-field"><label>Cópias</label><input class="field" type="number" min="1" value="1"></div><div class="form-field"><label>Formato</label><select class="field"><option>A4</option><option>80 mm</option></select></div></div>
-        <button class="btn secondary" id="testPrintBtn">Imprimir página de teste</button>
-      </div>
-    </section>
+  <div class="page-scroll">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <p class="page-title" style="margin:0">Equipe</p>
+      <button class="btn btn-brand" id="newEmployeeBtn">+ Novo</button>
+    </div>
+    <div class="card">
+      <div style="padding:12px 14px;border-bottom:1px solid var(--line)"><input class="field" id="employeeSearch" placeholder="Buscar funcionário..."></div>
+      <div style="overflow-x:auto"><table><thead><tr><th>Nome</th><th>Setor</th><th>Situação</th><th>Refeição</th></tr></thead><tbody id="employeeTable"></tbody></table></div>
+    </div>
   </div>
 </section>
-
-</main>
+<section id="historico" class="page">
+  <div class="page-scroll">
+    <p class="page-title">Histórico</p>
+    <div class="card" style="overflow-x:auto">
+      <table><thead><tr><th>Data</th><th>Refeições</th><th>WhatsApp</th><th>Impressão</th></tr></thead><tbody>
+        <tr><td>25/08/2026</td><td>18</td><td><span class="status ok">Enviado</span></td><td><span class="status ok">Impresso</span></td></tr>
+        <tr><td>24/08/2026</td><td>17</td><td><span class="status ok">Enviado</span></td><td><span class="status ok">Impresso</span></td></tr>
+        <tr><td>21/08/2026</td><td>19</td><td><span class="status ok">Enviado</span></td><td><span class="status ok">Impresso</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</section>
+<section id="config" class="page">
+  <div class="page-scroll">
+    <p class="page-title">Configurações</p>
+    <div class="settings-grid">
+      <div class="card settings-card">
+        <h3>Evolution API</h3><div class="sub">Conexão WhatsApp já existente.</div>
+        <div class="form-grid">
+          <div class="form-field"><label>URL da API</label><input class="field" value="http://localhost:8080"></div>
+          <div class="form-field"><label>Instância</label><input class="field" value="vcn-refeicoes"></div>
+          <div class="form-field"><label>API key</label><input class="field" type="password" value="************"></div>
+          <button class="btn btn-ghost" id="testWaBtn">Testar conexão</button>
+        </div>
+      </div>
+      <div class="card settings-card">
+        <h3>Grupo e restaurante</h3>
+        <div class="form-grid">
+          <div class="form-field"><label>JID do grupo</label><input class="field" value="120363xxxxxxxxxxxx@g.us"></div>
+          <div class="form-field"><label>Número autorizado</label><input class="field" value="+55 91 8358-8663"></div>
+        </div>
+      </div>
+      <div class="card settings-card">
+        <h3>Automação</h3>
+        <div class="form-grid">
+          <div class="switch-row"><div><strong>Importar cardápio auto</strong></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+          <div class="switch-row"><div><strong>Enviar resumo auto</strong></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+          <div class="switch-row"><div><strong>Imprimir ao finalizar</strong></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+          <div class="switch-row"><div><strong>Incluir extras</strong></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+        </div>
+      </div>
+      <div class="card settings-card">
+        <h3>Impressão</h3>
+        <div class="form-grid">
+          <div class="form-field"><label>Impressora</label><select class="field"><option>EPSON TM-T20X</option><option>Microsoft Print to PDF</option></select></div>
+          <div class="form-field"><label>Cópias</label><input class="field" type="number" min="1" value="1"></div>
+          <button class="btn btn-ghost" id="testPrintBtn">Página de teste</button>
+        </div>
+      </div>
+      <button class="btn btn-brand" id="saveConfigBtn" style="width:100%;padding:12px">Salvar configurações</button>
+    </div>
+  </div>
+</section>
 </div>
 <div class="toast" id="toast"></div>
-
 <script>
-const employees=[
-{id:1,name:"Antônio",sector:"Operacional",status:"pending"},
-{id:2,name:"Carlos",sector:"Financeiro",status:"pending"},
-{id:3,name:"Daniela",sector:"Administrativo",status:"pending"},
-{id:4,name:"Eduardo",sector:"Operacional",status:"pending"},
-{id:5,name:"Fábio",sector:"Pátio",status:"pending"},
-{id:6,name:"Glória",sector:"Financeiro",status:"pending"},
-{id:7,name:"Helena",sector:"Administrativo",status:"pending"},
-{id:8,name:"Igor",sector:"Operacional",status:"pending"},
-{id:9,name:"João",sector:"Pátio",status:"pending"},
-{id:10,name:"Kellen",sector:"Financeiro",status:"pending"},
-{id:11,name:"Lucas",sector:"Operacional",status:"pending"},
-{id:12,name:"Marcos",sector:"Pátio",status:"pending"},
-{id:13,name:"Natália",sector:"Administrativo",status:"pending"},
-{id:14,name:"Paulo",sector:"Operacional",status:"pending"},
-{id:15,name:"Rafael",sector:"Pátio",status:"pending"},
-{id:16,name:"Samuel",sector:"Operacional",status:"pending"},
-{id:17,name:"Tatiana",sector:"Financeiro",status:"pending"},
-{id:18,name:"Vitor",sector:"Operacional",status:"pending"},
-{id:19,name:"Wellington",sector:"Pátio",status:"pending"}
-];
-
+const employees=[{id:1,name:"Antônio",sector:"Operacional",status:"pending"},{id:2,name:"Carlos",sector:"Financeiro",status:"pending"},{id:3,name:"Daniela",sector:"Administrativo",status:"pending"},{id:4,name:"Eduardo",sector:"Operacional",status:"pending"},{id:5,name:"Fábio",sector:"Pátio",status:"pending"},{id:6,name:"Glória",sector:"Financeiro",status:"pending"},{id:7,name:"Helena",sector:"Administrativo",status:"pending"},{id:8,name:"Igor",sector:"Operacional",status:"pending"},{id:9,name:"João",sector:"Pátio",status:"pending"},{id:10,name:"Kellen",sector:"Financeiro",status:"pending"},{id:11,name:"Lucas",sector:"Operacional",status:"pending"},{id:12,name:"Marcos",sector:"Pátio",status:"pending"},{id:13,name:"Natália",sector:"Administrativo",status:"pending"},{id:14,name:"Paulo",sector:"Operacional",status:"pending"},{id:15,name:"Rafael",sector:"Pátio",status:"pending"},{id:16,name:"Samuel",sector:"Operacional",status:"pending"},{id:17,name:"Tatiana",sector:"Financeiro",status:"pending"},{id:18,name:"Vitor",sector:"Operacional",status:"pending"},{id:19,name:"Wellington",sector:"Pátio",status:"pending"}];
 const meals=["Filé de frango","Bife com ovo","Bisteca suína","Frango frito","Calabresa com ovo","Frango empanado"];
-const sectorTag={"Operacional":"tag-0","Financeiro":"tag-5","Administrativo":"tag-4","Pátio":"tag-1"};
-const tagFor=(meal)=>"tag-"+(meals.indexOf(meal)%6);
-
-const selections={};
-const historyStack=[];
-let extraQty=0;
-let activeEmployeeId=null; // null = fluxo automático; com valor = operador escolheu manualmente
-
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1500)}
-function pendingEmployees(){return employees.filter(e=>e.status==="pending")}
-function currentEmployee(){return pendingEmployees()[0]||null}
-function activeEmployee(){
-  if(activeEmployeeId){
-    const e=employees.find(x=>x.id===activeEmployeeId);
-    if(e) return e;
-  }
-  return currentEmployee();
+const tagCls=i=>"t"+(i%6);
+const sectorTag={"Operacional":"t0","Financeiro":"t5","Administrativo":"t4","Pátio":"t1"};
+const selections={};const historyStack=[];let extraQty=0;let overrideId=null;
+const $=id=>document.getElementById(id);
+const toast=msg=>{const t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1400)};
+const pending=()=>employees.filter(e=>e.status==="pending");
+const nextEmp=()=>pending()[0]||null;
+const active=()=>{if(overrideId){const e=employees.find(x=>x.id===overrideId);if(e&&e.status==="pending")return e;}return nextEmp();};
+const countMeal=name=>Object.values(selections).filter(s=>s.meal===name).length;
+const initial=name=>name.charAt(0);
+const pluralize=w=>{if(w.endsWith("ão"))return w.slice(0,-2)+"ões";if(w.endsWith("m"))return w.slice(0,-1)+"ns";if(/[rsz]$/.test(w))return w+"es";return w+"s"};
+const summaryData=()=>meals.map((m,i)=>({name:m,qty:countMeal(m),cls:tagCls(i)})).filter(x=>x.qty>0);
+const specialsLines=()=>{const d={};Object.values(selections).forEach(s=>{const p=[];if(s.extraQty>0){const b="ovo frito";p.push(s.extraQty===1?b:`${s.extraQty} ${pluralize(b)}`);}if(s.obs)p.push(s.obs.toLowerCase());if(p.length){const k=p.join(" e ");d[k]=(d[k]||0)+1;}});return Object.entries(d).map(([desc,qty])=>`${qty} ${qty===1?"refeição":"refeições"} com ${desc}`);};
+function statusLabel(e){const s=selections[e.id];if(e.status==="answered")return`✓ ${e.name}${s?" — "+s.meal:""}`;if(e.status==="absent")return`${e.name} — ausente`;return e.name;}
+function renderEmpStrip(){
+  const strip=$("empStrip");const e=active();
+  if(!e){strip.innerHTML=`<div class="done-panel"><div class="mark">✓</div><h3>Coleta concluída</h3><p>Todos atendidos.</p></div>`;$("mealGrid").innerHTML="";[$("minusExtra"),$("plusExtra")].forEach(el=>{if(el.closest(".extras-strip"))el.closest(".extras-strip").style.display="none"});document.querySelector(".extras-strip").style.display="none";document.querySelector(".actions-strip").style.display="none";return;}
+  document.querySelector(".extras-strip").style.display="";document.querySelector(".actions-strip").style.display="";
+  const idx=employees.indexOf(e)+1;
+  const opts=employees.map(emp=>`<option value="${emp.id}"${emp.id===e.id?" selected":""}>${statusLabel(emp)}</option>`).join("");
+  const oor=e.id!==nextEmp()?.id?`<div style="font-size:10.5px;color:var(--amber);font-weight:700;margin-top:2px">⚡ Fora da ordem</div>`:"";
+  strip.innerHTML=`<div class="emp-strip"><div class="emp-avatar">${initial(e.name)}</div><div class="emp-info"><div class="emp-label">Funcionário atual · ${idx}/${employees.length}</div><div class="emp-name">${e.name}</div><div class="emp-meta">${e.sector}</div>${oor}</div><div class="emp-jump"><select id="empJump">${opts}</select></div></div>`;
+  $("empJump").onchange=ev=>{overrideId=Number(ev.target.value);renderEmpStrip();renderMeals();};
 }
-function countMeal(name){return Object.values(selections).filter(s=>s.meal===name).length}
-function initials(name){return name.charAt(0)}
-
-function pluralize(word){
-  const w=word.toLowerCase();
-  if(w.endsWith("ão")) return w.slice(0,-2)+"ões";
-  if(w.endsWith("m")) return w.slice(0,-1)+"ns";
-  if(/[rsz]$/.test(w)) return w+"es";
-  return w+"s";
+function renderMeals(){
+  const e=active();if(!e){$("mealGrid").innerHTML="";return;}
+  const ex=selections[e.id];extraQty=ex?ex.extraQty:0;$("extraQty").textContent=extraQty;$("obs").value=ex?.obs||"";
+  $("mealGrid").innerHTML=meals.map((m,i)=>`<button class="meal ${tagCls(i)}${ex?.meal===m?" selected":""}" data-meal="${m}"><span class="count">${countMeal(m)}</span><strong>${m}</strong><span>Prato principal</span></button>`).join("");
+  $("mealGrid").querySelectorAll(".meal").forEach(btn=>btn.onclick=()=>chooseMeal(btn.dataset.meal,btn));
 }
-
-function statusLabel(emp){
-  const sel=selections[emp.id];
-  if(emp.status==="answered") return `✓ ${emp.name} — ${sel?sel.meal:""}`;
-  if(emp.status==="absent") return `${emp.name} — ausente`;
-  return `${emp.name} — pendente`;
-}
-
-function renderCollection(){
-  const box=document.getElementById("collectionContent");
-  const e=activeEmployee();
-
-  if(!e){
-    box.innerHTML=`<div class="done-state"><div class="mark">✓</div><h3>Coleta concluída</h3><p class="sub">Todos os funcionários foram atendidos. Confira o resumo ao lado.</p></div>`;
-    return;
-  }
-
-  const position=employees.indexOf(e)+1;
-  const existing=selections[e.id];
-  extraQty=existing?existing.extraQty:0;
-  const foraDaOrdem=e.id!==currentEmployee()?.id;
-
-  const jumpOptions=employees.map(emp=>
-    `<option value="${emp.id}" ${emp.id===e.id?"selected":""}>${statusLabel(emp)}</option>`
-  ).join("");
-
-  box.innerHTML=`
-    <div class="employee-card">
-      <div class="avatar">${initials(e.name)}</div>
-      <div>
-        <div class="label">Funcionário atual</div>
-        <h3 class="employee-name">${e.name}</h3>
-        <div class="employee-meta">Setor ${e.sector} · Funcionário ${position} de ${employees.length}</div>
-        ${foraDaOrdem?'<span class="out-of-order">Atendendo fora da ordem automática</span>':""}
-      </div>
-      <div class="employee-jump">
-        <label class="label">Atender outro funcionário</label>
-        <select id="employeeJump" class="field">${jumpOptions}</select>
-      </div>
-    </div>
-
-    <div class="label">Escolha a refeição</div>
-    <div class="meal-grid" id="mealGrid">
-      ${meals.map(m=>`<button class="meal ${tagFor(m)} ${existing?.meal===m?"selected":""}" data-meal="${m}"><strong>${m}</strong><span>Prato principal</span><span class="count">${countMeal(m)}</span></button>`).join("")}
-    </div>
-
-    <div class="extras">
-      <div class="label">Extras opcionais</div>
-      <div class="extra-row">
-        <div><strong>Ovo frito</strong><div class="sub">R$ 2,00 por unidade</div></div>
-        <div class="qty-ctrl"><button class="mini" id="minusExtra">−</button><span class="qty" id="extraQty">${extraQty}</span><button class="mini" id="plusExtra">+</button></div>
-      </div>
-      <textarea id="obs" placeholder="Observação opcional, ex.: arroz e feijão">${existing?.obs||""}</textarea>
-    </div>
-
-    <div class="footer-actions">
-      <button class="btn secondary" id="absentBtn">Marcar como ausente</button>
-      <button class="btn ghost" id="undoBtn">↩ Desfazer última escolha</button>
-    </div>
-  `;
-
-  document.querySelectorAll(".meal").forEach(btn=>btn.onclick=()=>chooseMeal(btn.dataset.meal,btn));
-  document.getElementById("plusExtra").onclick=()=>{extraQty++;document.getElementById("extraQty").textContent=extraQty};
-  document.getElementById("minusExtra").onclick=()=>{extraQty=Math.max(0,extraQty-1);document.getElementById("extraQty").textContent=extraQty};
-  document.getElementById("absentBtn").onclick=markAbsent;
-  document.getElementById("undoBtn").onclick=undo;
-  document.getElementById("employeeJump").onchange=(ev)=>{
-    activeEmployeeId=Number(ev.target.value);
-    renderCollection();
-  };
-}
-
-function chooseMeal(meal,btn){
-  const e=activeEmployee();if(!e)return;
-  const obs=document.getElementById("obs").value.trim();
-  selections[e.id]={meal,extraQty,obs};
-  historyStack.push({employeeId:e.id,type:"meal"});
-  e.status="answered";
-  btn.classList.add("selected");
-  toast(`${meal} salvo — ${e.name}`);
-  activeEmployeeId=null; // volta ao fluxo automático depois de um atendimento fora da ordem
-  extraQty=0;
-  setTimeout(renderAll,320);
-}
-
-function markAbsent(){
-  const e=activeEmployee();if(!e)return;
-  historyStack.push({employeeId:e.id,type:"absent"});
-  e.status="absent";
-  activeEmployeeId=null;
-  extraQty=0;
-  toast(`${e.name} marcado como ausente`);
-  renderAll();
-}
-
-function undo(){
-  const last=historyStack.pop();
-  if(!last){toast("Nada para desfazer");return}
-  const e=employees.find(x=>x.id===last.employeeId);
-  e.status="pending";
-  if(last.type==="meal") delete selections[e.id];
-  activeEmployeeId=e.id; // mostra imediatamente quem foi desfeito, pronto para corrigir
-  toast(`Última ação desfeita: ${e.name}`);
-  renderAll();
-}
-
-function summaryData(){return meals.map(m=>({name:m,qty:countMeal(m)})).filter(x=>x.qty>0)}
-
-function specialsLines(){
-  const descriptions=[];
-  Object.values(selections).forEach(s=>{
-    const parts=[];
-    if(s.extraQty>0){
-      const base="ovo frito";
-      parts.push(s.extraQty===1?base:`${s.extraQty} ${pluralize(base)}`);
-    }
-    if(s.obs) parts.push(s.obs.toLowerCase());
-    if(parts.length) descriptions.push(parts.join(" e "));
-  });
-  const counts={};
-  descriptions.forEach(d=>counts[d]=(counts[d]||0)+1);
-  return Object.entries(counts).map(([desc,qty])=>`${qty} ${qty===1?"refeição":"refeições"} com ${desc}`);
-}
-
-function renderSummaryList(targetId){
-  const sum=summaryData();
-  document.getElementById(targetId).innerHTML=sum.length
-    ? sum.map(x=>`<div class="summary-item ${tagFor(x.name)}"><span class="dot2"></span><span>${x.name}</span><b>${x.qty}</b></div>`).join("")
-    : `<div class="empty">${targetId==="summary"?"Nenhuma refeição escolhida ainda.":"A coleta ainda não começou."}</div>`;
-}
-
+function chooseMeal(meal,btn){const e=active();if(!e)return;const obs=$("obs").value.trim();selections[e.id]={meal,extraQty,obs};historyStack.push({employeeId:e.id,type:"meal"});e.status="answered";btn.classList.add("selected");overrideId=null;extraQty=0;toast(`${meal} — ${e.name}`);setTimeout(renderAll,280);}
+function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);renderAll();}
+function undo(){const last=historyStack.pop();if(!last){toast("Nada para desfazer");return;}const e=employees.find(x=>x.id===last.employeeId);e.status="pending";if(last.type==="meal")delete selections[e.id];overrideId=e.id;toast(`Desfeito: ${e.name}`);renderAll();}
 function renderSummary(){
-  const answered=employees.filter(e=>e.status==="answered").length;
-  const absent=employees.filter(e=>e.status==="absent").length;
-  const pending=employees.filter(e=>e.status==="pending").length;
-
-  document.getElementById("answered").textContent=answered;
-  document.getElementById("pending").textContent=pending;
-  document.getElementById("totalMeals").textContent=answered;
-  document.getElementById("counterChip").textContent=`${answered+absent} de ${employees.length}`;
-
-  const pct=employees.length?Math.round((answered+absent)/employees.length*100):0;
-  document.getElementById("progressLabel").textContent=pct+"%";
-  document.getElementById("progressBar").style.width=pct+"%";
-
-  renderSummaryList("summary");
-  renderSummaryList("dashSummary");
-  document.getElementById("dashAnswered").textContent=answered;
-  document.getElementById("dashPending").textContent=pending;
-
-  const lines=summaryData().map(x=>`${x.qty} ${x.name.toLowerCase()}`);
-  const specials=specialsLines();
-  let text=`Bom dia\n\n${lines.join("\n")}`;
-  if(specials.length) text+=`\n\n${specials.join("\n")}`;
-  text+=`\n\nTotal ${answered} ${answered===1?"refeição":"refeições"}`;
-  document.getElementById("preview").textContent=text;
+  const ans=employees.filter(e=>e.status==="answered").length;const abs=employees.filter(e=>e.status==="absent").length;const pend=employees.filter(e=>e.status==="pending").length;
+  $("answered").textContent=ans;$("pending").textContent=pend;$("totalMeals").textContent=ans;$("dashAnswered").textContent=ans;$("dashPending").textContent=pend;
+  const pct=Math.round((ans+abs)/employees.length*100);$("progressLabel").textContent=pct+"%";$("progressBar").style.width=pct+"%";
+  const sum=summaryData();
+  const listHtml=sum.length?sum.map(x=>`<div class="s-item ${x.cls}"><span class="s-dot"></span><span>${x.name}</span><b>${x.qty}</b></div>`).join(""):`<div class="empty">Nenhuma escolha ainda.</div>`;
+  $("summary").innerHTML=listHtml;$("dashSummary").innerHTML=listHtml;
+  const lines=sum.map(x=>`${x.qty} ${x.name.toLowerCase()}`);const specials=specialsLines();
+  let text=`Bom dia\n\n${lines.join("\n")}`;if(specials.length)text+=`\n\n${specials.join("\n")}`;text+=`\n\nTotal ${ans} ${ans===1?"refeição":"refeições"}`;
+  $("preview").textContent=text;
 }
+function renderEmployeeTable(){const q=($("employeeSearch")?.value||"").toLowerCase();$("employeeTable").innerHTML=employees.filter(e=>(e.name+" "+e.sector).toLowerCase().includes(q)).map(e=>{const s=selections[e.id];const st=e.status==="answered"?'<span class="status ok">Respondido</span>':e.status==="absent"?'<span class="status absent">Ausente</span>':'<span class="status pending">Pendente</span>';return `<tr><td><strong>${e.name}</strong></td><td><span class="badge ${sectorTag[e.sector]}">${e.sector}</span></td><td>${st}</td><td style="font-size:12px">${s?s.meal:"—"}</td></tr>`;}).join("");}
+function renderAll(){renderEmpStrip();renderMeals();renderSummary();renderEmployeeTable();}
+// Drawer
+const drawer=$("drawer"),overlay=$("drawerOverlay");
+const openDrawer=()=>{drawer.classList.add("open");overlay.classList.add("open");};
+const closeDrawer=()=>{drawer.classList.remove("open");overlay.classList.remove("open");};
+$("menuBtn").onclick=openDrawer;
+$("drawerClose").onclick=closeDrawer;
+overlay.onclick=closeDrawer;
 
-function renderEmployeeTable(){
-  const q=(document.getElementById("employeeSearch")?.value||"").toLowerCase();
-  const rows=employees.filter(e=>(e.name+" "+e.sector).toLowerCase().includes(q)).map(e=>{
-    const s=selections[e.id];
-    const st=e.status==="answered"?'<span class="status ok">Escolhido</span>':e.status==="absent"?'<span class="status absent">Ausente</span>':'<span class="status pending">Pendente</span>';
-    return `<tr>
-      <td><div class="row-avatar"><div class="mini-avatar ${sectorTag[e.sector]}">${initials(e.name)}</div><strong>${e.name}</strong></div></td>
-      <td><span class="badge ${sectorTag[e.sector]}">${e.sector}</span></td>
-      <td>${st}</td>
-      <td>${s?s.meal:"—"}</td>
-    </tr>`;
-  }).join("");
-  document.getElementById("employeeTable").innerHTML=rows;
-}
-
-function renderAll(){renderCollection();renderSummary();renderEmployeeTable()}
-
-document.querySelectorAll(".nav").forEach(btn=>btn.onclick=()=>{
-  document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+document.querySelectorAll(".dlink").forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll(".dlink").forEach(n=>n.classList.remove("active"));
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   btn.classList.add("active");
-  document.getElementById(btn.dataset.page).classList.add("active");
+  $(btn.dataset.page).classList.add("active");
+  closeDrawer();
 });
-
-document.getElementById("employeeSearch").oninput=renderEmployeeTable;
-document.getElementById("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById("preview").textContent);toast("Resumo copiado")}catch{toast("Não foi possível copiar")}};
-document.getElementById("printBtn").onclick=()=>toast("Pedido enviado para a impressora");
-document.getElementById("sendBtn").onclick=()=>toast("Resumo enviado para o WhatsApp");
-document.getElementById("saveConfigBtn").onclick=()=>toast("Configurações salvas");
-document.getElementById("testWaBtn").onclick=()=>toast("Evolution API conectada");
-document.getElementById("testPrintBtn").onclick=()=>toast("Página de teste enviada");
-document.getElementById("newEmployeeBtn").onclick=()=>toast("Cadastro de funcionário simulado");
-
+document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{btn.closest(".tab-bar").querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));btn.classList.add("active");const pane=$("tab-"+btn.dataset.tab);pane.closest(".tab-content").querySelectorAll(".tab-pane").forEach(p=>p.classList.remove("active"));pane.classList.add("active");});
+$("plusExtra").onclick=()=>{extraQty++;$("extraQty").textContent=extraQty};
+$("minusExtra").onclick=()=>{extraQty=Math.max(0,extraQty-1);$("extraQty").textContent=extraQty};
+$("absentBtn").onclick=markAbsent;$("undoBtn").onclick=undo;$("employeeSearch").oninput=renderEmployeeTable;
+$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText($("preview").textContent);toast("Copiado")}catch{toast("Não foi possível copiar")}};
+$("printBtn").onclick=()=>toast("Enviado para a impressora");$("sendBtn").onclick=()=>toast("Resumo enviado ao WhatsApp");$("saveConfigBtn").onclick=()=>toast("Configurações salvas");$("testWaBtn").onclick=()=>toast("Evolution API conectada");$("testPrintBtn").onclick=()=>toast("Página de teste enviada");$("newEmployeeBtn").onclick=()=>toast("Simulado: novo funcionário");
 renderAll();
 </script>
 </body>
