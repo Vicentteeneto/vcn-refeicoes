@@ -450,17 +450,20 @@ function renderMeals(){
   $("mealGrid").querySelectorAll(".meal").forEach(btn=>btn.onclick=()=>chooseMeal(btn.dataset.meal,btn));
 }
 function chooseMeal(meal,btn){const e=active();if(!e)return;const obs=$("obs").value.trim();selections[e.id]={meal,extraQty,obs};historyStack.push({employeeId:e.id,type:"meal"});e.status="answered";btn.classList.add("selected");overrideId=null;extraQty=0;toast(`${meal} — ${e.name}`);setTimeout(renderAll,280);}
-function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);// Modal listeners — safe (elements may be in hidden sections)
-const safeOn = (id, ev, fn) => { const el = $(id); if (el) el[ev] = fn; };
-safeOn("modalClose",      "onclick", closeModal);
-safeOn("modalCancel",     "onclick", closeModal);
-safeOn("modalSave",       "onclick", saveEmployee);
-safeOn("deleteModalClose","onclick", closeDeleteModal);
-safeOn("deleteCancelBtn", "onclick", closeDeleteModal);
-safeOn("deleteConfirmBtn","onclick", confirmDelete);
-safeOn("empNome",         "onkeydown", e => { if (e.key === "Enter") saveEmployee(); });
-safeOn("empModal",        "onclick", e => { if (e.target === $("empModal")) closeModal(); });
-safeOn("deleteModal",     "onclick", e => { if (e.target === $("deleteModal")) closeDeleteModal(); });
+function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);// Event delegation — funciona mesmo com elementos em seções ocultas
+document.addEventListener("click", function(e) {
+  const id = e.target.closest("[id]")?.id || e.target.id;
+  if (["modalClose","modalCancel"].includes(id)) closeModal();
+  if (id === "modalSave") saveEmployee();
+  if (["deleteModalClose","deleteCancelBtn"].includes(id)) closeDeleteModal();
+  if (id === "deleteConfirmBtn") confirmDelete();
+  if (id === "empModal" && e.target === $("empModal")) closeModal();
+  if (id === "deleteModal" && e.target === $("deleteModal")) closeDeleteModal();
+});
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Enter" && document.activeElement?.id === "empNome") saveEmployee();
+  if (e.key === "Escape") { closeModal(); closeDeleteModal(); }
+});
 renderAll();}
 function undo(){const last=historyStack.pop();if(!last){toast("Nada para desfazer");return;}const e=employees.find(x=>x.id===last.employeeId);e.status="pending";if(last.type==="meal")delete selections[e.id];overrideId=e.id;toast(`Desfeito: ${e.name}`);renderAll();}
 function renderSummary(){
