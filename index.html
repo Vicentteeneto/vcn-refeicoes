@@ -415,7 +415,27 @@ const specialsLines=()=>{const d={};Object.values(selections).forEach(s=>{const 
 function statusLabel(e){const s=selections[e.id];if(e.status==="answered")return`✓ ${e.name}${s?" — "+s.meal:""}`;if(e.status==="absent")return`${e.name} — ausente`;return e.name;}
 function renderEmpStrip(){
   const strip=$("empStrip");const e=active();
-  if(!e){strip.innerHTML=`<div class="done-panel"><div class="mark">✓</div><h3>Coleta concluída</h3><p>Todos atendidos.</p></div>`;$("mealGrid").innerHTML="";[$("minusExtra"),$("plusExtra")].forEach(el=>{if(el.closest(".extras-strip"))el.closest(".extras-strip").style.display="none"});document.querySelector(".extras-strip").style.display="none";document.querySelector(".actions-strip").style.display="none";return;}
+  if(!e){const ans=employees.filter(e=>e.status==="answered").length;
+  strip.innerHTML=`<div class="done-panel">
+    <div class="mark">✓</div>
+    <h3>Coleta concluída</h3>
+    <p>${ans} refeição(ões) registrada(s).</p>
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;justify-content:center">
+      <button class="btn btn-ghost" onclick="navigator.clipboard.writeText(document.getElementById('preview').textContent).then(()=>toast('Copiado'))">
+        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span> Copiar resumo
+      </button>
+      <button class="btn btn-brand" onclick="toast('Resumo enviado ao WhatsApp')">
+        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span> Enviar WhatsApp
+      </button>
+      <button class="btn btn-ghost" onclick="toast('Enviado para a impressora')">
+        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg></span> Imprimir
+      </button>
+    </div>
+  </div>`;
+  $("mealGrid").innerHTML="";
+  document.querySelector(".extras-strip").style.display="none";
+  document.querySelector(".actions-strip").style.display="none";
+  return;}
   document.querySelector(".extras-strip").style.display="";document.querySelector(".actions-strip").style.display="";
   const idx=employees.indexOf(e)+1;
   const opts=employees.map(emp=>`<option value="${emp.id}"${emp.id===e.id?" selected":""}>${statusLabel(emp)}</option>`).join("");
@@ -430,15 +450,17 @@ function renderMeals(){
   $("mealGrid").querySelectorAll(".meal").forEach(btn=>btn.onclick=()=>chooseMeal(btn.dataset.meal,btn));
 }
 function chooseMeal(meal,btn){const e=active();if(!e)return;const obs=$("obs").value.trim();selections[e.id]={meal,extraQty,obs};historyStack.push({employeeId:e.id,type:"meal"});e.status="answered";btn.classList.add("selected");overrideId=null;extraQty=0;toast(`${meal} — ${e.name}`);setTimeout(renderAll,280);}
-function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);$("modalClose").onclick=closeModal;
-$("modalCancel").onclick=closeModal;
-$("modalSave").onclick=saveEmployee;
-$("empModal").onclick=e=>{if(e.target===$("empModal"))closeModal()};
-$("deleteModalClose").onclick=closeDeleteModal;
-$("deleteCancelBtn").onclick=closeDeleteModal;
-$("deleteConfirmBtn").onclick=confirmDelete;
-$("deleteModal").onclick=e=>{if(e.target===$("deleteModal"))closeDeleteModal()};
-$("empNome").onkeydown=e=>{if(e.key==="Enter")saveEmployee()};
+function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);// Modal listeners — safe (elements may be in hidden sections)
+const safeOn = (id, ev, fn) => { const el = $(id); if (el) el[ev] = fn; };
+safeOn("modalClose",      "onclick", closeModal);
+safeOn("modalCancel",     "onclick", closeModal);
+safeOn("modalSave",       "onclick", saveEmployee);
+safeOn("deleteModalClose","onclick", closeDeleteModal);
+safeOn("deleteCancelBtn", "onclick", closeDeleteModal);
+safeOn("deleteConfirmBtn","onclick", confirmDelete);
+safeOn("empNome",         "onkeydown", e => { if (e.key === "Enter") saveEmployee(); });
+safeOn("empModal",        "onclick", e => { if (e.target === $("empModal")) closeModal(); });
+safeOn("deleteModal",     "onclick", e => { if (e.target === $("deleteModal")) closeDeleteModal(); });
 renderAll();}
 function undo(){const last=historyStack.pop();if(!last){toast("Nada para desfazer");return;}const e=employees.find(x=>x.id===last.employeeId);e.status="pending";if(last.type==="meal")delete selections[e.id];overrideId=e.id;toast(`Desfeito: ${e.name}`);renderAll();}
 function renderSummary(){
