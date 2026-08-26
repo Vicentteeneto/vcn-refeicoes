@@ -450,15 +450,14 @@ function renderMeals(){
   $("mealGrid").querySelectorAll(".meal").forEach(btn=>btn.onclick=()=>chooseMeal(btn.dataset.meal,btn));
 }
 function chooseMeal(meal,btn){const e=active();if(!e)return;const obs=$("obs").value.trim();selections[e.id]={meal,extraQty,obs};historyStack.push({employeeId:e.id,type:"meal"});e.status="answered";btn.classList.add("selected");overrideId=null;extraQty=0;toast(`${meal} — ${e.name}`);setTimeout(renderAll,280);}
-function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);// Event delegation — funciona mesmo com elementos em seções ocultas
+function markAbsent(){const e=active();if(!e)return;historyStack.push({employeeId:e.id,type:"absent"});e.status="absent";overrideId=null;extraQty=0;toast(`${e.name} marcado como ausente`);// Event delegation — usa closest("#id") para não capturar elementos pai incorretamente
 document.addEventListener("click", function(e) {
-  const id = e.target.closest("[id]")?.id || e.target.id;
-  if (["modalClose","modalCancel"].includes(id)) closeModal();
-  if (id === "modalSave") saveEmployee();
-  if (["deleteModalClose","deleteCancelBtn"].includes(id)) closeDeleteModal();
-  if (id === "deleteConfirmBtn") confirmDelete();
-  if (id === "empModal" && e.target === $("empModal")) closeModal();
-  if (id === "deleteModal" && e.target === $("deleteModal")) closeDeleteModal();
+  if (e.target.closest("#modalClose") || e.target.closest("#modalCancel")) { closeModal(); return; }
+  if (e.target.closest("#modalSave")) { saveEmployee(); return; }
+  if (e.target.closest("#deleteModalClose") || e.target.closest("#deleteCancelBtn")) { closeDeleteModal(); return; }
+  if (e.target.closest("#deleteConfirmBtn")) { confirmDelete(); return; }
+  if (e.target === $("empModal")) { closeModal(); return; }
+  if (e.target === $("deleteModal")) { closeDeleteModal(); return; }
 });
 document.addEventListener("keydown", function(e) {
   if (e.key === "Enter" && document.activeElement?.id === "empNome") saveEmployee();
